@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/MyCookbook/static/css/main.073c9b0a.css",
+    "main.js": "/MyCookbook/static/js/main.f9ab4e82.js",
+    "static/js/787.0e5041c8.chunk.js": "/MyCookbook/static/js/787.0e5041c8.chunk.js",
+    "static/media/logo.svg": "/MyCookbook/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/MyCookbook/index.html",
+    "main.073c9b0a.css.map": "/MyCookbook/static/css/main.073c9b0a.css.map",
+    "main.f9ab4e82.js.map": "/MyCookbook/static/js/main.f9ab4e82.js.map",
+    "787.0e5041c8.chunk.js.map": "/MyCookbook/static/js/787.0e5041c8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.f9ab4e82.js"
+  ]
+}
