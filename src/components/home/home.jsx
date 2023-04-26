@@ -12,7 +12,13 @@ import Select from "@mui/material/Select";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, CardActions, InputLabel } from "@mui/material";
+import {
+  CardActionArea,
+  CardActions,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import myImage1 from "../../projectImages/bahamas.jpg";
 import myImage2 from "../../projectImages/niagara.jpg";
 import myImage3 from "../../projectImages/venice.jpg";
@@ -40,13 +46,35 @@ export const Home = () => {
 
       <SearchIcon />
 
-      <Box padding={"50px"}>
-        <InputLabel id="menuType">Menu Type</InputLabel>
-        <Select labelId="Menu Type"></Select>
-        <InputLabel id="Cuisines">Cuisines</InputLabel>
-        <Select labelId="Cuisines"></Select>
-        <InputLabel id="Diet">Diet</InputLabel>
-        <Select labelId="Diet"></Select>
+      <Box padding={"50px"} display={"flex"} alignContent={"center"}>
+        <Box marginLeft={"100px"}>
+          <FormControl sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="menuType" sx={{ fontSize: "28px" }}>
+              Menu Type
+            </InputLabel>
+            <Select
+              labelId="Menu Type"
+              placeholder="Menu Type"
+              label="Menu Type"
+            />
+          </FormControl>
+        </Box>
+        <Box marginLeft={"275px"} marginRight={"275px"}>
+          <FormControl sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="Cuisines" sx={{ fontSize: "28px" }}>
+              Cuisines
+            </InputLabel>
+            <Select labelId="Cuisines" />
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="Diet" sx={{ fontSize: "28px" }}>
+              Diet
+            </InputLabel>
+            <Select labelId="Diet" />
+          </FormControl>
+        </Box>
       </Box>
 
       <box id="row1">
@@ -66,7 +94,8 @@ export const Home = () => {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              See Details
+              <AddIcon />
+              Add to Menu
             </Button>
           </CardActions>
         </Card>
@@ -87,7 +116,8 @@ export const Home = () => {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              See Details
+              <AddIcon />
+              Add to Menu
             </Button>
           </CardActions>
         </Card>
@@ -108,7 +138,8 @@ export const Home = () => {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              See Details
+              <AddIcon />
+              Add to Menu
             </Button>
           </CardActions>
         </Card>
@@ -130,7 +161,8 @@ export const Home = () => {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              See Details
+              <AddIcon />
+              Add to Menu
             </Button>
           </CardActions>
         </Card>
@@ -152,7 +184,8 @@ export const Home = () => {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              See Details
+              <AddIcon />
+              Add to Menu
             </Button>
           </CardActions>
         </Card>
@@ -174,22 +207,13 @@ export const Home = () => {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              See Details
+              <AddIcon />
+              Add to Menu
             </Button>
           </CardActions>
         </Card>
       </box>
-      <br></br>
-      <Button
-        variant="contained"
-        color="secondary"
-        target="_blank"
-        component="a"
-        href="https://travel.usnews.com/rankings/worlds-best-vacations/"
-      >
-        CLICK HERE FOR MORE LOCATIONS
-      </Button>
-      <br></br>
+
       <br></br>
       <h2 textAlign="center"> To join our email list</h2>
       <FormGroup id="subscribe">
