@@ -1,16 +1,18 @@
 //Chaya Tanenbaum
 import "../../App.css";
 import "./home.css";
-//import "../../datePicker.js"
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import SearchIcon from "@mui/icons-material/Search";
+import Select from "@mui/material/Select";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, CardActions } from "@mui/material";
+import { CardActionArea, CardActions, InputLabel } from "@mui/material";
 import myImage1 from "../../projectImages/bahamas.jpg";
 import myImage2 from "../../projectImages/niagara.jpg";
 import myImage3 from "../../projectImages/venice.jpg";
@@ -34,15 +36,19 @@ export const Home = () => {
           <Rating name="size-medium" defaultValue={4} />
         </Stack>
       </Box>
+      <TextField placeholder="search recipes" variant="standard" />
 
-      <h1 id="welcome">Welcome to your Vacation Planner!</h1>
+      <SearchIcon />
 
-      <h1 id="text">
-        Would you like to experience Niagara while the falls are frozen or the
-        Bahamas where its hot and sunny We help you plan your next vacation for
-        whatever season all you have to do is select a location.
-      </h1>
-      <br></br>
+      <Box padding={"50px"}>
+        <InputLabel id="menuType">Menu Type</InputLabel>
+        <Select labelId="Menu Type"></Select>
+        <InputLabel id="Cuisines">Cuisines</InputLabel>
+        <Select labelId="Cuisines"></Select>
+        <InputLabel id="Diet">Diet</InputLabel>
+        <Select labelId="Diet"></Select>
+      </Box>
+
       <box id="row1">
         <Card sx={{ maxWidth: 345 }} id="bahamas">
           <CardActionArea>

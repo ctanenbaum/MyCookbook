@@ -10,7 +10,7 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
-export const Chat = () => {
+export const shoppingList = () => {
   const [chats, setChats] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [newChatName, setNewChatName] = useState("");
@@ -30,19 +30,19 @@ export const Chat = () => {
       });
   }
 
-  function setChat(chat) {
-    setCurrentChat(chat);
-    getMessages(chat.id);
+  function setChat(shoppingList) {
+    setCurrentChat(shoppingList);
+    getMessages(shoppingList.id);
   }
 
   function postNewChat() {
-    const chat = { name: newChatName };
+    const shoppingList = { name: newChatName };
     fetch("https://z36h06gqg7.execute-api.us-east-1.amazonaws.com/chats", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(chat),
+      body: JSON.stringify(shoppingList),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -128,13 +128,13 @@ export const Chat = () => {
           anchor="left"
         >
           <List>
-            {chats.map((chat) => (
-              <MenuItem key={chat.id} value={chat.id}>
+            {chats.map((shoppingList) => (
+              <MenuItem key={shoppingList.id} value={shoppingList.id}>
                 <ListItemIcon>
                   <ChatBubbleIcon fontSize="small" />
                 </ListItemIcon>
-                <Button color="secondary" onClick={() => setChat(chat)}>
-                  {chat.name}
+                <Button color="secondary" onClick={() => setChat(shoppingList)}>
+                  {shoppingList.name}
                 </Button>
               </MenuItem>
             ))}
