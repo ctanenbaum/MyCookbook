@@ -5,7 +5,7 @@ export const ShoppingList = () => {
     <div className="App">
       <h1>Hello World</h1>
       <Box>
-        <Typography>Hello hello</Typography>
+        <Typography>Hello world</Typography>
       </Box>
     </div>
   );

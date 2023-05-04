@@ -16,7 +16,7 @@ import myImage1 from "../../projectImages/myCookbookIcon.png";
 
 const pages = [
   { name: "Search Recipes", path: "/" },
-  { name: "Shopping List", path: "/chat" },
+  { name: "Shopping List", path: "/shoppingList" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -44,14 +44,14 @@ export function Header() {
   };
 
   return (
-    <box id="header">
+    <Box id="header">
       <AppBar
         position="static"
         sx={{ color: "#6b6767", backgroundColor: "#5af1f7" }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <box id="siteName">
+            <Box id="siteName">
               <Typography
                 variant="h4"
                 noWrap
@@ -69,7 +69,7 @@ export function Header() {
               >
                 My Cookbook
               </Typography>
-            </box>
+            </Box>
 
             <Typography
               variant="h5"
@@ -110,7 +110,11 @@ export function Header() {
             <Box id="leftHeader" sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="My Cookbook" src={myImage1} />
+                  <Avatar
+                    alt="My Cookbook"
+                    sx={{ width: 60, height: 60 }}
+                    src={myImage1}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -139,6 +143,6 @@ export function Header() {
           </Toolbar>
         </Container>
       </AppBar>
-    </box>
+    </Box>
   );
 }
