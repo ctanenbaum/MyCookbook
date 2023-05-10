@@ -1,14 +1,20 @@
 //Chaya Tanenbaum
 import "./home.css";
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { HomeActions } from "../../state/searchState/searchReducer";
+import { SearchContext } from "../../state/searchState/searchContext";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import Select from "@mui/material/Select";
-
+import Carousel from "react-material-ui-carousel";
+import myImage1 from "../../projectImages/myCookbook.jpg";
+import myImage2 from "../../projectImages/milkshakes.jpg";
+import myImage3 from "../../projectImages/salad.jpg";
+import myImage4 from "../../projectImages/pasta.jpg";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -18,108 +24,107 @@ import {
   InputLabel,
   Grid,
   MenuItem,
+  Paper,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-
-import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
-
 export const Home = () => {
+  const APIKEY = "87e6d1f729b14eccb389ea297af15972";
   const [input, setInput] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [menuType, setMenuType] = useState("");
   const [cuisines, setCuisines] = useState("");
   const [dietType, setDietType] = useState("");
+  const { searchState, searchDispatch } = useContext(SearchContext);
 
-  const onInput = (event) => {
+  function PictureCarousel() {
+    const items = [
+      {
+        img: myImage1,
+        alt: "Picture 1",
+      },
+      {
+        img: myImage2,
+        alt: "Picture 2",
+      },
+      {
+        img: myImage3,
+        alt: "Picture 3",
+      },
+      {
+        img: myImage4,
+        alt: "Picture 3",
+      },
+    ];
+
+    return (
+      <Carousel>
+        {items.map((item, i) => (
+          <Paper key={i}>
+            <img src={item.img} alt={item.alt} />
+          </Paper>
+        ))}
+      </Carousel>
+    );
+  }
+
+  const searchRecipe = () => {
+    searchDispatch({
+      type: HomeActions.SEARCH,
+      recipe: { title: input },
+    });
+    searchBar();
+  };
+  const searchBar = () => {
+    fetch(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&query=${input}&number=360&type=${menuType}&cuisine=${cuisines}&diet=${dietType}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setRecipes(data.results);
+      });
+  };
+
+  const updateMenuType = (event) => {
     console.log(event.target.value);
-    setInput(event.target.value);
+    setMenuType(event.target.value);
+  };
+  // and maybe call api with new type
+
+  const updateCuisines = (event) => {
+    console.log(event.target.value);
+    setCuisines(event.target.value);
   };
 
-  useEffect(() => {
-    async function searchBar() {
-      const response = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=87e6d1f729b14eccb389ea297af15972&query=${input}&number=360`
-      );
-      const data = await response.json();
-      setRecipes(data.results);
-    }
-
-    if (input !== "") {
-      searchBar();
-    }
-  }, [input]);
-
-  const menuOptions = () => {
-    fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=87e6d1f729b14eccb389ea297af15972&type=${menuType}$number=360`
-    )
-      .then((response) => response.json())
-      .then((data) => setMenuType(data.data))
-      .catch((error) => console.error(error));
+  const updateDietType = (event) => {
+    console.log(event.target.value);
+    setDietType(event.target.value);
   };
 
-  const cuisineOptions = () => {
-    fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=87e6d1f729b14eccb389ea297af15972&cuisine=${cuisines}$number=360`
-    )
-      .then((response) => response.json())
-      .then((data) => setCuisines(data.data))
-      .catch((error) => console.error(error));
-  };
-
-  const dietOptions = () => {
-    fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=87e6d1f729b14eccb389ea297af15972&diet=${dietType}$number=360`
-    )
-      .then((response) => response.json())
-      .then((data) => setDietType(data.data))
-      .catch((error) => console.error(error));
-  };
-
-  const pages = [{ name: "Recipes", path: "/recipe" }];
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleCloseNavMenu = (page) => {
-    setAnchorElNav(null);
-    if (page) {
-      navigate(page.path);
-    }
-  };
+  function setURL(recipeId) {
+    navigate(`/recipe/${recipeId}`);
+  }
 
   return (
     <div className="App">
       <Box sx={{ flexGrow: 1 }}>
-        <Stack spacing={1} id="rateUs">
-          <h3>Rate us:</h3>
-          <Rating name="size-medium" defaultValue={4} />
-        </Stack>
+        <PictureCarousel />
       </Box>
-      <TextField
-        placeholder="search recipes"
-        variant="standard"
-        onInput={onInput}
-        value={input}
-      />
-
-      <Button>
-        <SearchIcon />
-      </Button>
 
       <Box padding={"50px"} display={"flex"} alignContent={"center"}>
-        <Box marginLeft={"100px"}>
+        <Box marginLeft={"50px"}>
           <FormControl sx={{ m: 1, minWidth: 200 }}>
             <InputLabel id="menuType" sx={{ fontSize: "28px" }}>
               Menu Type
             </InputLabel>
-            <Select labelId="Menu Type" value={menuType} onChange={menuOptions}>
+            <Select
+              labelId="Menu Type"
+              value={menuType}
+              onChange={updateMenuType}
+            >
               <MenuItem value=""></MenuItem>
               <MenuItem value="main course">Main Course</MenuItem>
               <MenuItem value="side dish">Side Dish</MenuItem>
@@ -138,7 +143,7 @@ export const Home = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box marginLeft={"275px"} marginRight={"275px"}>
+        <Box marginLeft={"125px"} marginRight={"125px"}>
           <FormControl sx={{ m: 1, minWidth: 200 }}>
             <InputLabel id="Cuisines" sx={{ fontSize: "28px" }}>
               Cuisines
@@ -146,7 +151,7 @@ export const Home = () => {
             <Select
               labelId="Cuisines"
               value={cuisines}
-              onChange={cuisineOptions}
+              onChange={updateCuisines}
             >
               <MenuItem value=""></MenuItem>
               <MenuItem value="african">African</MenuItem>
@@ -178,12 +183,12 @@ export const Home = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box>
+        <Box marginRight={"150px"}>
           <FormControl sx={{ m: 1, minWidth: 200 }}>
             <InputLabel id="Diet" sx={{ fontSize: "28px" }}>
               Diet
             </InputLabel>
-            <Select labelId="Diet" value={dietType} onChange={dietOptions}>
+            <Select labelId="Diet" value={dietType} onChange={updateDietType}>
               <MenuItem value=""></MenuItem>
               <MenuItem value="gluten free">Gluten Free</MenuItem>
               <MenuItem value="ketogenic">Ketogenic</MenuItem>
@@ -196,26 +201,31 @@ export const Home = () => {
             </Select>
           </FormControl>
         </Box>
+        <TextField
+          placeholder="search recipes"
+          variant="standard"
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+        />{" "}
+        <Button onClick={() => searchBar()}>
+          <SearchIcon />
+        </Button>
       </Box>
-
       <Box>
         <Grid container spacing={2}>
           {recipes.map((recipe) => (
-            <Grid item xs={12} sm={6} md={4} key={recipe.id}>
-              <Card sx={{ maxWidth: 345 }}>
-                {pages.map((page) => (
-                  <Button
-                    key={page.name}
-                    onClick={() => handleCloseNavMenu(page)}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="180"
-                      image={recipe.image}
-                      alt={recipe.title}
-                    />
-                  </Button>
-                ))}
+            <Grid item xs={12} sm={6} md={4} key={recipes.id}>
+              <Card
+                sx={{ maxWidth: 345, marginLeft: "70px", marginTop: "50px" }}
+              >
+                <Button onClick={() => setURL(recipe.id)}>
+                  <CardMedia
+                    component="img"
+                    height="180"
+                    image={recipe.image}
+                    alt={recipe.title}
+                  />
+                </Button>
 
                 <CardContent>
                   <Typography variant="h5" component="h2">
