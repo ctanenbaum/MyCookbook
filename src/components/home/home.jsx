@@ -1,96 +1,68 @@
 //Chaya Tanenbaum
 import "./home.css";
 import * as React from "react";
-import { useState, useEffect, useContext } from "react";
-import { HomeActions } from "../../state/searchState/searchReducer";
-import { SearchContext } from "../../state/searchState/searchContext";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../state/searchState/GlobalState";
+import { MenuActions } from "../../state/menuState/menuReducer";
+import { menuContext } from "../../state/menuState/menuContext";
+import { PictureCarousel } from "./carousel";
 import SearchIcon from "@mui/icons-material/Search";
-import Select from "@mui/material/Select";
-import Carousel from "react-material-ui-carousel";
-import myImage1 from "../../projectImages/myCookbook.jpg";
-import myImage2 from "../../projectImages/milkshakes.jpg";
-import myImage3 from "../../projectImages/salad.jpg";
-import myImage4 from "../../projectImages/pasta.jpg";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import AddIcon from "@mui/icons-material/Add";
 import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  Select,
+  Card,
+  CardContent,
+  CardMedia,
   CardActions,
   FormControl,
   InputLabel,
   Grid,
   MenuItem,
-  Paper,
+  Toolbar,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const { state: globalState, dispatch: globalDispatch } =
+    useContext(GlobalContext);
+
+  const { menuState, menuDispatch } = useContext(menuContext);
+
   const APIKEY = "87e6d1f729b14eccb389ea297af15972";
   const [input, setInput] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [menuType, setMenuType] = useState("");
   const [cuisines, setCuisines] = useState("");
   const [dietType, setDietType] = useState("");
-  const { searchState, searchDispatch } = useContext(SearchContext);
 
-  function PictureCarousel() {
-    const items = [
-      {
-        img: myImage1,
-        alt: "Picture 1",
-      },
-      {
-        img: myImage2,
-        alt: "Picture 2",
-      },
-      {
-        img: myImage3,
-        alt: "Picture 3",
-      },
-      {
-        img: myImage4,
-        alt: "Picture 3",
-      },
-    ];
-
-    return (
-      <Carousel>
-        {items.map((item, i) => (
-          <Paper key={i}>
-            <img src={item.img} alt={item.alt} />
-          </Paper>
-        ))}
-      </Carousel>
-    );
-  }
-
-  const searchRecipe = () => {
-    searchDispatch({
-      type: HomeActions.SEARCH,
-      recipe: { title: input },
-    });
-    searchBar();
-  };
   const searchBar = () => {
     fetch(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&query=${input}&number=360&type=${menuType}&cuisine=${cuisines}&diet=${dietType}`
     )
       .then((response) => response.json())
       .then((data) => {
+        globalDispatch({ type: "SET_RECIPES", payload: data.results });
         setRecipes(data.results);
       });
+  };
+
+  const addToMenu = (title) => {
+    const menuItem = {
+      title: title,
+    };
+    menuDispatch({ type: MenuActions.ADD, menuItem: menuItem });
+
+    console.log(menuItem);
   };
 
   const updateMenuType = (event) => {
     console.log(event.target.value);
     setMenuType(event.target.value);
   };
-  // and maybe call api with new type
 
   const updateCuisines = (event) => {
     console.log(event.target.value);
@@ -110,7 +82,10 @@ export const Home = () => {
 
   return (
     <div className="App">
-      <Box sx={{ flexGrow: 1 }}>
+      <Toolbar />
+      <Box
+        sx={{ flexGrow: 1, position: "relative", top: 0, left: 0, zIndex: "0" }}
+      >
         <PictureCarousel />
       </Box>
 
@@ -213,8 +188,8 @@ export const Home = () => {
       </Box>
       <Box>
         <Grid container spacing={2}>
-          {recipes.map((recipe) => (
-            <Grid item xs={12} sm={6} md={4} key={recipes.id}>
+          {globalState.recipes.map((recipe) => (
+            <Grid item xs={12} sm={6} md={4} key={recipe.id}>
               <Card
                 sx={{ maxWidth: 345, marginLeft: "70px", marginTop: "50px" }}
               >
@@ -231,16 +206,13 @@ export const Home = () => {
                   <Typography variant="h5" component="h2">
                     {recipe.title}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {recipe.summary}
-                  </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary">
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => addToMenu(recipe.title)}
+                  >
                     <AddIcon />
                     Add to Menu
                   </Button>

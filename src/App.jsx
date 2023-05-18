@@ -4,38 +4,45 @@ import { Home } from "./components/home/home";
 import { Todo } from "./components/todo/todo";
 import { Header } from "./components/header/header";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import { TodoContext } from "./state/todoState/todoContext";
-import { todoReducer } from "./state/todoState/todoReducer";
 import { ShoppingList } from "./components/shoppingList/shoppingList";
 import { Recipe } from "./components/recipe/recipe";
-import { SearchContext } from "./state/searchState/searchContext";
-import { SearchReducer } from "./state/searchState/searchReducer";
+import { menuContext } from "./state/menuState/menuContext";
+import { menuReducer } from "./state/menuState/menuReducer";
+import { shoppingListContext } from "./state/shoppingListState/shoppingListContext";
+import { shoppingListReducer } from "./state/shoppingListState/shoppingListReducer";
+import { GlobalProvider } from "./state/searchState/GlobalState";
 
 function App() {
-  const [searchState, searchDispatch] = useReducer(SearchReducer, {
-    recipes: [],
+  const [listState, listDispatch] = useReducer(shoppingListReducer, {
+    listItems: [],
   });
-  const [todoState, todoDispatch] = useReducer(todoReducer, {
-    todos: [],
+  const [menuState, menuDispatch] = useReducer(menuReducer, {
+    menuItems: [],
   });
 
   return (
     <HashRouter>
       <Header />
-      <SearchContext.Provider value={{ searchState, searchDispatch }}>
-        <TodoContext.Provider value={{ todoState, todoDispatch }}>
-          <Routes>
-            {/* http://localhost:3000/#/ */}
-            <Route path="/" element={<Home />} />
-            {/* http://localhost:3000/#/todo */}
-            <Route path="/todo" element={<Todo />} />
-            {/* http://localhost:3000/#/shoppingList */}
-            <Route path="/shoppingList" element={<ShoppingList />} />
-            {/* http://localhost:3000/#/recipe/{id} */}
-            <Route path="/recipe/:recipeId" element={<Recipe />} />
-          </Routes>
-        </TodoContext.Provider>
-      </SearchContext.Provider>
+      <GlobalProvider>
+        <shoppingListContext.Provider value={{ listState, listDispatch }}>
+          <menuContext.Provider value={{ menuState, menuDispatch }}>
+            <Routes>
+              {/* http://localhost:3000/#/ */}
+              <Route path="/" element={<Home />} />
+
+              {/* http://localhost:3000/#/shoppingList/{id} */}
+              <Route
+                path="/shoppingList/:recipeId"
+                element={<ShoppingList />}
+              />
+              {/* http://localhost:3000/#/shoppingList */}
+              <Route path="/shoppingList" element={<ShoppingList />} />
+              {/* http://localhost:3000/#/recipe/{id} */}
+              <Route path="/recipe/:recipeId" element={<Recipe />} />
+            </Routes>
+          </menuContext.Provider>
+        </shoppingListContext.Provider>
+      </GlobalProvider>
     </HashRouter>
   );
 }

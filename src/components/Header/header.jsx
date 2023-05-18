@@ -46,8 +46,12 @@ export function Header() {
   return (
     <Box id="header">
       <AppBar
-        position="static"
-        sx={{ color: "#6b6767", backgroundColor: "#5af1f7" }}
+        position="fixed"
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          color: "#6b6767",
+          backgroundColor: "#5af1f7",
+        }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
