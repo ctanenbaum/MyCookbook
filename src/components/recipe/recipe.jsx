@@ -75,10 +75,10 @@ export const Recipe = () => {
           >
             {recipes.title}
           </Typography>
-          <Typography sx={{ fontWeight: "bold" }}>
+          <Typography sx={{ fontWeight: "bold", fontFamily: "cursive" }}>
             Preparation time: {recipes.readyInMinutes} minutes
           </Typography>
-          <Typography sx={{ fontWeight: "bold" }}>
+          <Typography sx={{ fontWeight: "bold", fontFamily: "cursive" }}>
             Number of servings: {recipes.servings}
           </Typography>
           <img

@@ -191,7 +191,7 @@ export const Home = () => {
           onChange={(event) => setInput(event.target.value)}
         />{" "}
         <Button onClick={() => searchBar()}>
-          <SearchIcon />
+          <SearchIcon sx={{ fontSize: 30 }} />
         </Button>
       </Box>
       <Box>
