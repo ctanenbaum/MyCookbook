@@ -1,21 +1,22 @@
 {
   "files": {
-    "main.css": "/MyCookbook/static/css/main.3af78e5a.css",
-    "main.js": "/MyCookbook/static/js/main.94f38cce.js",
+    "main.css": "/MyCookbook/static/css/main.a26a56f0.css",
+    "main.js": "/MyCookbook/static/js/main.492a52bb.js",
     "static/js/787.0e5041c8.chunk.js": "/MyCookbook/static/js/787.0e5041c8.chunk.js",
     "static/media/myCookbookIcon.png": "/MyCookbook/static/media/myCookbookIcon.d6e2eae2c02cadc4a8f5.png",
     "static/media/salad.jpg": "/MyCookbook/static/media/salad.7f8c0c4e67304aac4382.jpg",
     "static/media/pasta.jpg": "/MyCookbook/static/media/pasta.c9f5693a32455f99d627.jpg",
     "static/media/milkshakes.jpg": "/MyCookbook/static/media/milkshakes.e667ac5899106e3b4ff1.jpg",
     "static/media/myCookbook.jpg": "/MyCookbook/static/media/myCookbook.5be6a5632acfbc423b24.jpg",
-    "static/media/logo.svg": "/MyCookbook/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/marbleBackground.jpg": "/MyCookbook/static/media/marbleBackground.f93c1c38ca42970db97c.jpg",
+    "static/media/paper.png": "/MyCookbook/static/media/paper.444f7fa2436c524616ad.png",
     "index.html": "/MyCookbook/index.html",
-    "main.3af78e5a.css.map": "/MyCookbook/static/css/main.3af78e5a.css.map",
-    "main.94f38cce.js.map": "/MyCookbook/static/js/main.94f38cce.js.map",
+    "main.a26a56f0.css.map": "/MyCookbook/static/css/main.a26a56f0.css.map",
+    "main.492a52bb.js.map": "/MyCookbook/static/js/main.492a52bb.js.map",
     "787.0e5041c8.chunk.js.map": "/MyCookbook/static/js/787.0e5041c8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3af78e5a.css",
-    "static/js/main.94f38cce.js"
+    "static/css/main.a26a56f0.css",
+    "static/js/main.492a52bb.js"
   ]
 }
