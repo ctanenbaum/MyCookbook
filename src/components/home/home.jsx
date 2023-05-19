@@ -4,8 +4,7 @@ import * as React from "react";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../state/searchState/GlobalState";
-import { MenuActions } from "../../state/menuState/menuReducer";
-import { menuContext } from "../../state/menuState/menuContext";
+import { MenuContext } from "../../state/menuState/menuState";
 import { PictureCarousel } from "./carousel";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
@@ -30,14 +29,15 @@ export const Home = () => {
   const { state: globalState, dispatch: globalDispatch } =
     useContext(GlobalContext);
 
-  const { menuState, menuDispatch } = useContext(menuContext);
+  const { menuDispatch } = useContext(MenuContext);
 
   const APIKEY = "87e6d1f729b14eccb389ea297af15972";
   const [input, setInput] = useState("");
-  const [recipes, setRecipes] = useState([]);
+  const [setRecipes] = useState([]);
   const [menuType, setMenuType] = useState("");
   const [cuisines, setCuisines] = useState("");
   const [dietType, setDietType] = useState("");
+  const [disabledButtons, setDisabledButtons] = useState([]);
 
   const searchBar = () => {
     fetch(
@@ -50,13 +50,21 @@ export const Home = () => {
       });
   };
 
-  const addToMenu = (title) => {
+  const addToMenu = (title, recipeId) => {
     const menuItem = {
       title: title,
     };
-    menuDispatch({ type: MenuActions.ADD, menuItem: menuItem });
-
+    menuDispatch({
+      type: "ADD",
+      menuItem: menuItem,
+    });
+    setDisabledButtons([...disabledButtons, recipeId]);
+    console.log(recipeId);
     console.log(menuItem);
+  };
+
+  const isButtonDisabled = (buttonId) => {
+    return disabledButtons.includes(buttonId);
   };
 
   const updateMenuType = (event) => {
@@ -191,12 +199,18 @@ export const Home = () => {
           {globalState.recipes.map((recipe) => (
             <Grid item xs={12} sm={6} md={4} key={recipe.id}>
               <Card
-                sx={{ maxWidth: 345, marginLeft: "70px", marginTop: "50px" }}
+                sx={{
+                  maxWidth: 345,
+                  marginLeft: "70px",
+                  marginTop: "50px",
+                  boxShadow: "0px 2px 45px rgba(0, 0, 0, 0.5)",
+                }}
               >
                 <Button onClick={() => setURL(recipe.id)}>
                   <CardMedia
                     component="img"
-                    height="180"
+                    height="240"
+                    width="100%"
                     image={recipe.image}
                     alt={recipe.title}
                   />
@@ -211,7 +225,8 @@ export const Home = () => {
                   <Button
                     size="small"
                     color="primary"
-                    onClick={() => addToMenu(recipe.title)}
+                    onClick={() => addToMenu(recipe.title, recipe.id)}
+                    disabled={isButtonDisabled(recipe.id)}
                   >
                     <AddIcon />
                     Add to Menu

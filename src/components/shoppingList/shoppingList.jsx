@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { menuContext } from "../../state/menuState/menuContext";
-import { shoppingListContext } from "../../state/shoppingListState/shoppingListContext";
+import { MenuContext } from "../../state/menuState/menuState";
+import { ShoppingListContext } from "../../state/shoppingListState/shoppingListState";
 import paperImage from "../../projectImages/paper.png";
 
 import {
@@ -21,14 +21,14 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 
 export const ShoppingList = () => {
   const { recipeId } = useParams();
-  const [recipes, setRecipes] = useState({});
+  const [setRecipes] = useState({});
   const APIKEY = "87e6d1f729b14eccb389ea297af15972";
 
-  const { menuState } = useContext(menuContext);
+  const { menuState } = useContext(MenuContext);
   const { menuItems } = menuState;
 
-  //const { listState } = useContext(shoppingListContext);
-  //const { ingredients } = listState;
+  const { listState } = useContext(ShoppingListContext);
+  const { ingredients } = listState;
 
   useEffect(() => {
     fetch(
@@ -60,7 +60,12 @@ export const ShoppingList = () => {
           }}
         >
           <Toolbar />
-          <Typography>MENU: </Typography>
+          <Typography
+            marginTop={"50px"}
+            sx={{ color: "white", fontFamily: "cursive", fontSize: "30px" }}
+          >
+            MENU:{" "}
+          </Typography>
           <Box sx={{ overflow: "hidden", backgroundColor: "#6b6767" }}>
             {menuItems.length === 0 ? (
               <Typography margin={"50px"} color={"white"}>
@@ -106,10 +111,16 @@ export const ShoppingList = () => {
             minHeight: "100vh",
           }}
         >
-          <Typography marginTop={"120px"}>Shopping List</Typography>
+          <Typography
+            marginTop={"120px"}
+            marginLeft={"350px"}
+            sx={{ fontSize: "30px", fontFamily: "cursive" }}
+          >
+            SHOPPING LIST
+          </Typography>
           <List sx={{ padding: "25px" }}>
-            {recipes.extendedIngredients &&
-              recipes.extendedIngredients.map((ingredient) => (
+            {ingredients &&
+              ingredients.map((ingredient) => (
                 <ListItem
                   key={ingredient.id}
                   disablePadding
