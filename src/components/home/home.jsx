@@ -29,7 +29,7 @@ export const Home = () => {
   const { state: globalState, dispatch: globalDispatch } =
     useContext(GlobalContext);
 
-  const { menuDispatch } = useContext(MenuContext);
+  const { menuDispatch, menuState } = useContext(MenuContext);
 
   const APIKEY = "87e6d1f729b14eccb389ea297af15972";
   const [input, setInput] = useState("");
@@ -58,13 +58,15 @@ export const Home = () => {
       type: "ADD",
       menuItem: menuItem,
     });
-    setDisabledButtons([...disabledButtons, recipeId]);
-    console.log(recipeId);
+    menuDispatch({
+      type: "DISABLE",
+      title: recipeId,
+    });
     console.log(menuItem);
   };
 
-  const isButtonDisabled = (buttonId) => {
-    return disabledButtons.includes(buttonId);
+  const isButtonDisabled = (recipeId) => {
+    return menuState.disabledRecipes.includes(recipeId);
   };
 
   const updateMenuType = (event) => {

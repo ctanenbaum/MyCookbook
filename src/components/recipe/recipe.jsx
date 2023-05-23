@@ -9,7 +9,7 @@ import AddIcon from "@mui/icons-material/Add";
 import marbleBackground from "../../projectImages/marbleBackground.jpg";
 export const Recipe = () => {
   const { listDispatch } = useContext(ShoppingListContext);
-  const { menuDispatch } = useContext(MenuContext);
+  const { menuDispatch, menuState } = useContext(MenuContext);
   const { recipeId } = useParams();
   const [recipes, setRecipes] = useState({});
   const [disabledButtons, setDisabledButtons] = useState([]);
@@ -46,13 +46,15 @@ export const Recipe = () => {
       type: "ADD",
       menuItem: menuItem,
     });
-    setDisabledButtons([...disabledButtons, recipeId]);
-    console.log(recipeId);
+    menuDispatch({
+      type: "DISABLE",
+      title: recipeId,
+    });
     console.log(menuItem);
   };
 
-  const isButtonDisabled = (buttonId) => {
-    return disabledButtons.includes(buttonId);
+  const isButtonDisabled = (recipeId) => {
+    return menuState.disabledRecipes.includes(recipeId);
   };
 
   return (

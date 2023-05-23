@@ -16,18 +16,20 @@ import {
   ListItemText,
   Toolbar,
   Checkbox,
+  IconButton,
 } from "@mui/material";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const ShoppingList = () => {
   const { recipeId } = useParams();
   const [setRecipes] = useState({});
   const APIKEY = "87e6d1f729b14eccb389ea297af15972";
 
-  const { menuState } = useContext(MenuContext);
+  const { menuState, deleteMenuItem } = useContext(MenuContext);
   const { menuItems } = menuState;
 
-  const { listState } = useContext(ShoppingListContext);
+  const { listState, listDispatch } = useContext(ShoppingListContext);
   const { ingredients } = listState;
 
   useEffect(() => {
@@ -43,6 +45,17 @@ export const ShoppingList = () => {
         console.log(e);
       });
   }, [recipeId]);
+
+  const toggleChecked = (index) => {
+    listDispatch({
+      type: "TOGGLE",
+      payload: index, // Pass the index as the payload
+    });
+  };
+
+  const handleDelete = (title) => {
+    deleteMenuItem(title);
+  };
 
   return (
     <div className="App">
@@ -83,7 +96,6 @@ export const ShoppingList = () => {
                   >
                     <ListItemButton>
                       <ListItemIcon>
-                        {" "}
                         <RestaurantMenuIcon sx={{ color: "white" }} />
                       </ListItemIcon>
                       <ListItemText
@@ -94,6 +106,12 @@ export const ShoppingList = () => {
                         }}
                         primary={menuItem.title}
                       />
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => handleDelete(menuItem.title)}
+                      >
+                        <DeleteIcon sx={{ color: "white" }} />
+                      </IconButton>
                     </ListItemButton>
                   </ListItem>
                 ))}
@@ -120,9 +138,9 @@ export const ShoppingList = () => {
           </Typography>
           <List sx={{ padding: "25px" }}>
             {ingredients &&
-              ingredients.map((ingredient) => (
+              ingredients.map((ingredient, index) => (
                 <ListItem
-                  key={ingredient.id}
+                  key={index} // Use the index as the key
                   disablePadding
                   sx={{
                     marginLeft: "650px",
@@ -131,7 +149,11 @@ export const ShoppingList = () => {
                     fontSize: "20px",
                   }}
                 >
-                  <Checkbox sx={{ marginRight: "10px" }} />
+                  <Checkbox
+                    checked={ingredient.isComplete}
+                    onChange={() => toggleChecked(index)} // Pass the index to toggleChecked
+                    sx={{ marginRight: "10px" }}
+                  />
                   {ingredient.original}
                 </ListItem>
               ))}
