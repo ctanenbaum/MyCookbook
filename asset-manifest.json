@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/MyCookbook/static/css/main.a26a56f0.css",
-    "main.js": "/MyCookbook/static/js/main.299c510d.js",
+    "main.css": "/MyCookbook/static/css/main.ce9abb13.css",
+    "main.js": "/MyCookbook/static/js/main.19754f94.js",
     "static/js/787.0e5041c8.chunk.js": "/MyCookbook/static/js/787.0e5041c8.chunk.js",
     "static/media/myCookbookIcon.png": "/MyCookbook/static/media/myCookbookIcon.d6e2eae2c02cadc4a8f5.png",
     "static/media/salad.jpg": "/MyCookbook/static/media/salad.7f8c0c4e67304aac4382.jpg",
@@ -11,12 +11,12 @@
     "static/media/marbleBackground.jpg": "/MyCookbook/static/media/marbleBackground.f93c1c38ca42970db97c.jpg",
     "static/media/paper.png": "/MyCookbook/static/media/paper.444f7fa2436c524616ad.png",
     "index.html": "/MyCookbook/index.html",
-    "main.a26a56f0.css.map": "/MyCookbook/static/css/main.a26a56f0.css.map",
-    "main.299c510d.js.map": "/MyCookbook/static/js/main.299c510d.js.map",
+    "main.ce9abb13.css.map": "/MyCookbook/static/css/main.ce9abb13.css.map",
+    "main.19754f94.js.map": "/MyCookbook/static/js/main.19754f94.js.map",
     "787.0e5041c8.chunk.js.map": "/MyCookbook/static/js/787.0e5041c8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a26a56f0.css",
-    "static/js/main.299c510d.js"
+    "static/css/main.ce9abb13.css",
+    "static/js/main.19754f94.js"
   ]
 }
