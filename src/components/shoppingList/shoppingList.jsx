@@ -1,6 +1,7 @@
+import "./shoppingList.css";
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { MenuContext } from "../../state/menuState/menuState";
 import { ShoppingListContext } from "../../state/shoppingListState/shoppingListState";
 import paperImage from "../../projectImages/paper.png";
@@ -17,11 +18,17 @@ import {
   Toolbar,
   Checkbox,
   IconButton,
+  Grid,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export const ShoppingList = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const { recipeId } = useParams();
   const [setRecipes] = useState({});
   const APIKEY = "87e6d1f729b14eccb389ea297af15972";
@@ -49,7 +56,7 @@ export const ShoppingList = () => {
   const toggleChecked = (index) => {
     listDispatch({
       type: "TOGGLE",
-      payload: index, // Pass the index as the payload
+      payload: index,
     });
   };
 
@@ -59,18 +66,20 @@ export const ShoppingList = () => {
 
   return (
     <div className="App">
-      <Box>
+      <Box width="100%">
         <Drawer
-          variant="permanent"
+          variant={isMobile ? "temporary" : "permanent"}
           sx={{
-            width: "200px",
+            width: isMobile ? "100%" : "200px",
             flexShrink: 0,
             "& .MuiDrawer-paper": {
-              width: "375px",
+              width: isMobile ? "100%" : "375px",
               boxSizing: "border-box",
               backgroundColor: "#6b6767",
             },
           }}
+          // Add appropriate props for the mobile version
+          // For example, onClose, onOpen, open, etc.
         >
           <Toolbar />
           <Typography
@@ -125,26 +134,26 @@ export const ShoppingList = () => {
             backgroundImage: `url(${paperImage})`,
             backgroundRepeat: "repeat",
             backgroundSize: "auto",
-            padding: "20px",
+            padding: isMobile ? "10px" : "20px",
             minHeight: "100vh",
           }}
         >
           <Typography
-            marginTop={"120px"}
-            marginLeft={"350px"}
+            marginTop={isMobile ? "20px" : "120px"}
+            marginLeft={isMobile ? "10px" : "350px"}
             sx={{ fontSize: "30px", fontFamily: "cursive" }}
           >
             SHOPPING LIST
           </Typography>
-          <List sx={{ padding: "25px" }}>
+          <List sx={{ padding: isMobile ? "10px" : "25px" }}>
             {ingredients &&
               ingredients.map((ingredient, index) => (
                 <ListItem
                   key={index} // Use the index as the key
                   disablePadding
                   sx={{
-                    marginLeft: "650px",
-                    marginBottom: "20px",
+                    marginLeft: isMobile ? "10px" : "650px",
+                    marginBottom: isMobile ? "10px" : "20px",
                     fontFamily: "cursive",
                     fontSize: "20px",
                   }}

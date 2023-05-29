@@ -1,10 +1,12 @@
 import React from "react";
+import "./home.css";
 import Carousel from "react-material-ui-carousel";
 import myImage1 from "../../projectImages/myCookbook.jpg";
 import myImage2 from "../../projectImages/milkshakes.jpg";
 import myImage3 from "../../projectImages/salad.jpg";
 import myImage4 from "../../projectImages/pasta.jpg";
-import { Paper } from "@mui/material";
+import { Paper, Grid } from "@mui/material";
+
 export const PictureCarousel = React.memo(() => {
   const items = [
     {
@@ -26,12 +28,20 @@ export const PictureCarousel = React.memo(() => {
   ];
 
   return (
-    <Carousel showArrows infiniteLoop autoPlay interval={4000}>
-      {items.map((item, i) => (
-        <Paper key={i}>
-          <img src={item.img} alt={item.alt} />
-        </Paper>
-      ))}
-    </Carousel>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Carousel showArrows infiniteLoop autoPlay interval={4000}>
+          {items.map((item, i) => (
+            <Paper key={i} sx={{ display: "flex", justifyContent: "center" }}>
+              <img
+                src={item.img}
+                alt={item.alt}
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
+            </Paper>
+          ))}
+        </Carousel>
+      </Grid>
+    </Grid>
   );
 });

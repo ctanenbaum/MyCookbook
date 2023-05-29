@@ -35,38 +35,24 @@ code {
   padding: 50px;
 }
 
-#bahamas {
-  margin: 5%;
-  width: 100%;
-}
-#niagara {
-  margin: 5%;
-  width: 100%;
+/* Styles for desktop devices */
+.container {
+  width: 960px;
+  margin: 0 auto;
 }
 
-#venice {
-  margin: 5%;
-  width: 100%;
-}
-#netanya {
-  margin: 5%;
-  width: 100%;
-}
-
-#arizona {
-  margin: 5%;
-  width: 100%;
-}
-#china {
-  margin: 5%;
-  width: 100%;
+/* Styles for tablets */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
 }
 
-#subscribe {
-  margin-left: 45%;
-}
-
-#rateUs {
-  margin-left: 91%;
-  margin-bottom: 1em;
+/* Styles for mobile devices */
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
 }

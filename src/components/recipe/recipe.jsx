@@ -1,3 +1,4 @@
+import "./recipe.css";
 import * as React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
@@ -61,7 +62,8 @@ export const Recipe = () => {
     <div className="App">
       <Box
         maxWidth={"900px"}
-        marginLeft={"325px"}
+        marginLeft={"auto"}
+        marginRight={"auto"}
         marginTop={"80px"}
         sx={{ backgroundImage: `url(${marbleBackground})` }}
       >
@@ -73,20 +75,41 @@ export const Recipe = () => {
               color: "mediumpurple",
               fontFamily: "cursive",
               fontSize: "2rem",
+              textAlign: "center",
             }}
           >
             {recipes.title}
           </Typography>
-          <Typography sx={{ fontWeight: "bold", fontFamily: "cursive" }}>
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              fontFamily: "cursive",
+              textAlign: "center",
+            }}
+          >
             Preparation time: {recipes.readyInMinutes} minutes
           </Typography>
-          <Typography sx={{ fontWeight: "bold", fontFamily: "cursive" }}>
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              fontFamily: "cursive",
+              textAlign: "center",
+            }}
+          >
             Number of servings: {recipes.servings}
           </Typography>
           <img
             src={recipes.image}
             alt="recipe"
-            style={{ border: "5px dashed mediumPurple", marginTop: "15px" }}
+            style={{
+              border: "5px dashed mediumPurple",
+              marginTop: "15px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
+              maxWidth: "100%",
+              height: "auto",
+            }}
           />
           <Typography
             sx={{
@@ -95,21 +118,22 @@ export const Recipe = () => {
               fontSize: "30px",
               fontWeight: "bold",
               color: "mediumpurple",
+              textAlign: "center",
             }}
           >
             Ingredients:
           </Typography>
-          <List sx={{ alignContent: "center", padding: "25px" }}>
+          <List sx={{ padding: "25px" }}>
             {recipes.extendedIngredients &&
               recipes.extendedIngredients.map((ingredient) => (
                 <ListItem
                   key={ingredient.id}
                   disablePadding
                   sx={{
-                    marginLeft: "150px",
                     marginBottom: "20px",
                     fontFamily: "cursive",
                     fontSize: "20px",
+                    textAlign: "center",
                   }}
                 >
                   {ingredient.original}
@@ -122,8 +146,9 @@ export const Recipe = () => {
               color: "#6b6767",
               backgroundColor: "#5af1f7",
               padding: "10px",
-              marginLeft: "50px",
-              marginRight: "50px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
             }}
             onClick={() => addToMenu(recipes.title, recipes.id)}
             disabled={isButtonDisabled(recipes.id)}
@@ -137,6 +162,10 @@ export const Recipe = () => {
               color: "#6b6767",
               backgroundColor: "#5af1f7",
               padding: "10px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
+              marginTop: "20px",
             }}
             aria-label="add to shopping cart"
             onClick={handleAddToShoppingList}
@@ -153,6 +182,7 @@ export const Recipe = () => {
               fontSize: "30px",
               fontWeight: "bold",
               color: "mediumpurple",
+              textAlign: "center",
             }}
           >
             Instructions:
@@ -162,6 +192,7 @@ export const Recipe = () => {
               marginBottom: "20px",
               fontFamily: "cursive",
               fontSize: "20px",
+              textAlign: "center",
             }}
           >
             {recipes.instructions}

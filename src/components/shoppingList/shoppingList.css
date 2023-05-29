@@ -1,0 +1,21 @@
+/* Styles for desktop devices */
+.container {
+  width: 960px;
+  margin: 0 auto;
+}
+
+/* Styles for tablets */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+/* Styles for mobile devices */
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+}

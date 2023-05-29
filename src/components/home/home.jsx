@@ -24,8 +24,13 @@ import {
   MenuItem,
   Toolbar,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export const Home = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const { state: globalState, dispatch: globalDispatch } =
     useContext(GlobalContext);
 
@@ -94,13 +99,24 @@ export const Home = () => {
     <div className="App">
       <Toolbar />
       <Box
-        sx={{ flexGrow: 1, position: "relative", top: 0, left: 0, zIndex: "0" }}
+        sx={{
+          flexGrow: 1,
+          position: "relative",
+          top: 0,
+          left: 0,
+          zIndex: "0",
+          width: "100%",
+        }}
       >
         <PictureCarousel />
       </Box>
 
-      <Box padding={"50px"} display={"flex"} alignContent={"center"}>
-        <Box marginLeft={"50px"}>
+      <Box
+        padding={isMobile ? "10px" : "50px"}
+        display="flex"
+        alignItems="center"
+      >
+        <Box marginLeft={isMobile ? "10px" : "50px"}>
           <FormControl sx={{ m: 1, minWidth: 200 }}>
             <InputLabel id="menuType" sx={{ fontSize: "28px" }}>
               Menu Type
@@ -128,7 +144,10 @@ export const Home = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box marginLeft={"125px"} marginRight={"125px"}>
+        <Box
+          marginLeft={isMobile ? "10px" : "125px"}
+          marginRight={isMobile ? "10px" : "125px"}
+        >
           <FormControl sx={{ m: 1, minWidth: 200 }}>
             <InputLabel id="Cuisines" sx={{ fontSize: "28px" }}>
               Cuisines
@@ -168,7 +187,7 @@ export const Home = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box marginRight={"150px"}>
+        <Box marginRight={isMobile ? "10px" : "150px"}>
           <FormControl sx={{ m: 1, minWidth: 200 }}>
             <InputLabel id="Diet" sx={{ fontSize: "28px" }}>
               Diet
@@ -191,7 +210,7 @@ export const Home = () => {
           variant="standard"
           value={input}
           onChange={(event) => setInput(event.target.value)}
-        />{" "}
+        />
         <Button onClick={() => searchBar()}>
           <SearchIcon sx={{ fontSize: 30 }} />
         </Button>
@@ -203,8 +222,8 @@ export const Home = () => {
               <Card
                 sx={{
                   maxWidth: 345,
-                  marginLeft: "70px",
-                  marginTop: "50px",
+                  marginLeft: isMobile ? "10px" : "70px",
+                  marginTop: isMobile ? "10px" : "50px",
                   boxShadow: "0px 2px 45px rgba(0, 0, 0, 0.5)",
                 }}
               >
